@@ -20,6 +20,7 @@ class rancid (
   $group            = 'USE_DEFAULTS',
   $cron_d_file      = '/etc/cron.d/rancid',
   $cloginrc_content = 'USE_DEFAULTS',
+  $rcssys           = 'cvs',
 ) {
 
   # set default parameters
