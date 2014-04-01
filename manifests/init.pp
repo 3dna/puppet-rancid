@@ -18,7 +18,6 @@ class rancid (
   $logdir           = 'USE_DEFAULTS',
   $user             = 'USE_DEFAULTS',
   $group            = 'USE_DEFAULTS',
-  $shell            = 'USE_DEFAULTS',
   $cron_d_file      = '/etc/cron.d/rancid',
   $cloginrc_content = 'USE_DEFAULTS',
 ) {
@@ -36,7 +35,6 @@ class rancid (
       $default_rancid_config   = '/etc/rancid/rancid.conf'
       $default_user            = 'rancid'
       $default_group           = 'rancid'
-      $default_shell           = '/bin/bash'
       $default_homedir         = '/var/lib/rancid'
       $default_logdir          = '/var/log/rancid'
       $default_rancid_path_env = '/usr/lib/rancid/bin:/bin:/usr/bin:/usr/local/bin'
@@ -48,7 +46,6 @@ class rancid (
           $default_rancid_config   = '/etc/rancid/rancid.conf'
           $default_user            = 'rancid'
           $default_group           = 'rancid'
-          $default_shell           = '/bin/bash'
           $default_homedir         = '/var/rancid'
           $default_logdir          = '/var/log/rancid'
           $default_rancid_path_env = '/usr/libexec/rancid:/bin:/usr/bin:/usr/local/bin'
@@ -82,12 +79,6 @@ class rancid (
     $group_real = $default_group
   } else {
     $group_real = $group
-  }
-
-  if $shell == 'USE_DEFAULTS' {
-    $shell_real = $default_shell
-  } else {
-    $shell_real = $shell
   }
 
   if $homedir == 'USE_DEFAULTS' {
@@ -136,7 +127,6 @@ class rancid (
   validate_absolute_path($rancid_config_real)
   validate_absolute_path($homedir_real)
   validate_absolute_path($logdir_real)
-  validate_absolute_path($shell_real)
   validate_absolute_path($cron_d_file)
 
   $cloginrc_path = "${homedir_real}/.cloginrc"
@@ -144,38 +134,6 @@ class rancid (
 
   package { $packages_real:
     ensure => present,
-  }
-
-  group { 'rancid_group':
-    ensure  => present,
-    name    => $group_real,
-    system  => true,
-    require => Package[$packages_real],
-  }
-
-  user { 'rancid_user':
-    ensure  => present,
-    name    => $user_real,
-    gid     => $group_real,
-    shell   => $shell_real,
-    home    => $homedir_real,
-    require => Package[$packages_real],
-  }
-
-  file { 'logdir':
-    ensure  => directory,
-    path    => $logdir_real,
-    owner   => $user_real,
-    group   => $group_real,
-    mode    => '0750',
-  }
-
-  file { 'homedir':
-    ensure  => directory,
-    path    => $homedir_real,
-    owner   => $user_real,
-    group   => $group_real,
-    mode    => '0750',
   }
 
   file { 'rancid_config':
