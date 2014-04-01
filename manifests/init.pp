@@ -136,6 +136,21 @@ class rancid (
   package { $packages_real:
     ensure => present,
   }
+  file { 'logdir':
+    ensure => directory,
+    path   => $logdir_real,
+    owner  => $user_real,
+    group  => $group_real,
+    mode   => '0750',
+  }
+
+  file { 'homedir':
+    ensure => directory,
+    path   => $homedir_real,
+    owner  => $user_real,
+    group  => $group_real,
+    mode   => '0750',
+  }
 
   file { 'rancid_config':
     ensure  => present,
