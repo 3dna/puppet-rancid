@@ -144,14 +144,6 @@ class rancid (
     mode   => '0750',
   }
 
-  file { 'homedir':
-    ensure => directory,
-    path   => $homedir_real,
-    owner  => $user_real,
-    group  => $group_real,
-    mode   => '0750',
-  }
-
   file { 'rancid_config':
     ensure  => present,
     path    => $rancid_config_real,
