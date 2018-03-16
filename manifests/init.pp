@@ -115,13 +115,11 @@ class rancid (
   validate_re($locktime, '^(\d)+$', "rancid::locktime is ${locktime} and must match the regex of a number.")
   validate_re($parcount, '^(\d)+$', "rancid::parcount is ${parcount} and must match the regex of a number.")
 
-  $groups_type = type($groups)
-  if $groups_type != 'array' {
+  if ! is_array($groups_type) {
     fail("rancid::groups must be an array. Detected type is ${groups_type}.")
   }
 
-  $packages_type = type($packages)
-  if $packages_type != 'array' and $packages_type != 'string' {
+  if (! is_array($packages_type)) or (! is_string($packages_type)) {
     fail("rancid::packages must be an array or a string. Detected type is ${packages_type}.")
   }
 
