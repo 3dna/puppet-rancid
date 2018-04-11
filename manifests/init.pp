@@ -119,8 +119,8 @@ class rancid (
     fail("rancid::groups must be an array.")
   }
 
-  if (! is_array($packages)) or (! is_string($packages)) {
-    fail("rancid::packages must be an array or a string.")
+  if ! is_array($packages) {
+    fail("rancid::packages must be an array")
   }
 
   validate_absolute_path($rancid_config_real)
