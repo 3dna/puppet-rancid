@@ -119,7 +119,7 @@ class rancid (
     fail("rancid::groups must be an array.")
   }
 
-  if ! is_array($packages) {
+  if ! is_array($packages_real) {
     fail("rancid::packages must be an array")
   }
 
